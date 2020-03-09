@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Fragment } from 'react-native'
-
+import { connect } from 'react-redux'
 class ViewB extends Component {
   constructor(props) {
     super(props)
@@ -23,4 +23,10 @@ class ViewB extends Component {
   }
 }
 
-export default ViewB
+const mapStateToProps = (state) => {
+  return {
+    toDoList: state.toDoList
+  }
+}
+
+export default connect(mapStateToProps)(ViewB)

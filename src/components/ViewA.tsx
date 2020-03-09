@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { dispatch } from 'redux'
 import { TouchableOpacity, Text, View } from 'react-native'
+import { fetchToDoList } from '../actions/toDoActions'
 
 class ViewA extends Component {
   constructor(props) {
@@ -17,4 +20,10 @@ class ViewA extends Component {
   }
 }
 
-export default ViewA
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoadToDoList: () => dispatch(fetchToDoList())
+  }
+}
+
+export default connect(null, mapDispatchToProps)(ViewA)
