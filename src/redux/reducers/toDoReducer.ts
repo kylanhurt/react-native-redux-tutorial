@@ -9,19 +9,6 @@ export const initialState = {
 
 const toDoList = (state = initialState.toDoList, action) => {
   switch (action.type) {
-    case 'ADD_ITEM': {
-      const list = [...state]
-      list.push(action.data)
-      return list
-    }
-    case 'REMOVE_ITEM': {
-      const list = [...state]
-      const removedItem = list.pop()
-      return list
-    }
-    case 'RESET_ITEMS': {
-      return []
-    }
     case 'LOGIN': {
       return action.data.toDoList
     }
@@ -35,9 +22,6 @@ const toDoList = (state = initialState.toDoList, action) => {
 
 const lastUpdated = (state = initialState.lastUpdated, action) => {
   switch (action.type) {
-    case 'ADD_ITEM':
-    case 'REMOVE_ITEM':
-    case 'RESET_ITEMS':
     case 'LOGIN':
       const date = new Date()
       return date.toUTCString()

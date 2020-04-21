@@ -15,6 +15,7 @@ class ViewB extends Component {
     } = this.props
     return (
       <View style={{ padding: 12, height: '30%'}}>
+        <Text>{error}</Text>
         <Text>The List:</Text>
         <View style={{ padding: 12 }}>
           {toDoList.map((item, index) => (

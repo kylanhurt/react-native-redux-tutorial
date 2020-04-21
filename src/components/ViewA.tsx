@@ -16,24 +16,19 @@ class ViewA extends Component {
   }
 
   onLoadToDoList = async () => {
-    const response = await fetch('https://jsonplaceholder.typicode.com/todos/')
-    const result = await response.json()
-    this.props.onLogin(result.slice(0, 6))
+    try {
+      const response = await fetch('https://jsonplaceholder.typicode.com/todos/')
+      const result = await response.json()
+      this.props.onLogin(result.slice(0, 6))
+    } catch (e) {
+      this.props.onError('There was an error!')
+    }
   }
 
   render() {
 
     return (
       <View>
-        <TouchableOpacity style={styles} onPress={this.props.onAddItem}>
-          <Text>Add Item</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles} onPress={this.props.onRemoveItem}>
-          <Text>Remove Item</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles} onPress={this.props.onResetToDoList}>
-          <Text>Reset</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={styles} onPress={this.onLoadToDoList}>
           <Text>Login</Text>
         </TouchableOpacity>
@@ -47,13 +42,11 @@ class ViewA extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddItem: () => dispatch({ type: 'ADD_ITEM', data: { title: 'item' } }),
-    onRemoveItem: () => dispatch({ type: 'REMOVE_ITEM' }),
-    onResetToDoList: () => dispatch({ type: 'RESET_ITEMS' }),
     onLogout: () => dispatch({ type: 'LOGOUT' }),
     onLogin: (toDoList) => {
       dispatch({ type: 'LOGIN', data: { username: 'My Username', toDoList }})
-    }
+    },
+    onError: (error) => dispatch({ type: 'ERROR', data: error })
   }
 }
 
