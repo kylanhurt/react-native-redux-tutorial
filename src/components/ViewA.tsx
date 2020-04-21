@@ -44,9 +44,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onLogout: () => dispatch({ type: 'LOGOUT' }),
     onLogin: (toDoList) => {
-      dispatch({ type: 'LOGIN', data: { username: 'My Username', toDoList }})
+      dispatch({ type: 'LOGIN', username: 'My Username', toDoList })
     },
-    onError: (error) => dispatch({ type: 'ERROR', data: error })
+    onError: (error) => dispatch({ type: 'ERROR', error })
   }
 }
 

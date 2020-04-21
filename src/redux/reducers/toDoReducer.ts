@@ -10,7 +10,7 @@ export const initialState = {
 const toDoList = (state = initialState.toDoList, action) => {
   switch (action.type) {
     case 'LOGIN': {
-      return action.data.toDoList
+      return action.toDoList
     }
     case 'LOGOUT': {
       return []
@@ -35,7 +35,7 @@ const lastUpdated = (state = initialState.lastUpdated, action) => {
 const account = (state = initialState.account, action) => {
   switch (action.type) {
     case 'LOGIN':
-      return action.data.username
+      return action.username
     case 'LOGOUT':
       return null
     default:
@@ -46,7 +46,7 @@ const account = (state = initialState.account, action) => {
 const error = (state = initialState.error, action) => {
   switch (action.type) {
     case 'ERROR':
-      return action.data
+      return action.error
     case 'LOGOUT':
       return ''
     case 'LOGIN':
