@@ -1,64 +1,36 @@
-import { combineReducers } from "redux"
+import { createReducer } from "reduxsauce"
 
-export const initialState = {
+export const INITIAL_STATE = {
   toDoList: [],
   account: null,
   error: '',
   lastUpdated: ''
 }
 
-const toDoList = (state = initialState.toDoList, action) => {
-  switch (action.type) {
-    case 'LOGIN': {
-      return action.toDoList
-    }
-    case 'LOGOUT': {
-      return []
-    }
-    default:
-      return state
-  }
-}
-
-const lastUpdated = (state = initialState.lastUpdated, action) => {
-  switch (action.type) {
-    case 'LOGIN':
-      const date = new Date()
-      return date.toUTCString()
-    case 'LOGOUT':
-      return ''
-    default:
-      return state
-  }
-}
-
-const account = (state = initialState.account, action) => {
-  switch (action.type) {
-    case 'LOGIN':
-      return action.username
-    case 'LOGOUT':
-      return null
-    default:
-      return state
-  }
-}
-
-const error = (state = initialState.error, action) => {
-  switch (action.type) {
-    case 'ERROR':
-      return action.error
-    case 'LOGOUT':
-      return ''
-    case 'LOGIN':
-      return ''
-    default:
-      return state
-  }
-}
-
-export default combineReducers({
+const login = (state, { username, toDoList }) => ({
+  ...state,
   toDoList,
-  account,
-  error,
-  lastUpdated
+  account: username,
+  lastUpdated: (new Date()).toUTCString()
 })
+
+const logout = (state) => ({
+  ...state,
+  toDoList: [],
+  lastUpdated: '',
+  account: null
+})
+
+const error = (state, { error }) => ({
+  ...state,
+  error
+})
+
+
+const ACTION_HANDLERS = {
+  'LOGIN': login,
+  'LOGOUT': logout,
+  'ERROR': error
+}
+
+export default createReducer(INITIAL_STATE, ACTION_HANDLERS)
