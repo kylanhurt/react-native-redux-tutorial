@@ -25,6 +25,8 @@ const lastUpdated = (state = initialState.lastUpdated, action) => {
     case 'LOGIN':
       const date = new Date()
       return date.toUTCString()
+    case 'LOGOUT':
+      return ''
     default:
       return state
   }
