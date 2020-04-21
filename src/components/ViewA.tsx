@@ -1,8 +1,9 @@
 import React, { Component, StyleSheet } from 'react'
 import { connect } from 'react-redux'
-import { dispatch } from 'redux'
+import { dispatch, bindActionCreators } from 'redux'
 import { TouchableOpacity, Text, View } from 'react-native'
 import { fetchToDoList } from '../actions/toDoActions'
+import { Types, Creators as Actions } from '../redux/actions'
 
 const styles = {
   borderWidth: 1,
@@ -40,14 +41,12 @@ class ViewA extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onLogout: () => dispatch({ type: 'LOGOUT' }),
-    onLogin: (toDoList) => {
-      dispatch({ type: 'LOGIN', username: 'My Username', toDoList })
-    },
-    onError: (error) => dispatch({ type: 'ERROR', error })
-  }
-}
+const { updateToDoList, login, logout, error } = Actions
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  onLogout: () => logout(),
+  onLogin: (toDoList) => login('My Username', toDoList ),
+  onError: (error) => error({ error })
+}, dispatch)
 
 export default connect(null, mapDispatchToProps)(ViewA)
