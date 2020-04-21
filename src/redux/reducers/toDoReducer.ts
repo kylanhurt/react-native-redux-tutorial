@@ -35,9 +35,7 @@ const lastUpdated = (state = initialState.lastUpdated, action) => {
 const account = (state = initialState.account, action) => {
   switch (action.type) {
     case 'LOGIN':
-      return {
-        myAccount: 'something'
-      }
+      return action.data.username
     case 'LOGOUT':
       return null
     default:
@@ -48,8 +46,10 @@ const account = (state = initialState.account, action) => {
 const error = (state = initialState.error, action) => {
   switch (action.type) {
     case 'ERROR':
-      return state
+      return action.data
     case 'LOGOUT':
+      return ''
+    case 'LOGIN':
       return ''
     default:
       return state
