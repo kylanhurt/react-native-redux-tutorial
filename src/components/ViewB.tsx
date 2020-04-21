@@ -7,17 +7,24 @@ class ViewB extends Component {
   }
 
   render() {
-    const { toDoList } = this.props
+    const {
+      lastUpdated,
+      error,
+      account,
+      toDoList
+    } = this.props
     return (
-      <View style={{ height: '30%'}}>
+      <View style={{ padding: 12, height: '30%'}}>
         <Text>The List:</Text>
-        <View>
-          {toDoList.map(item => (
+        <View style={{ padding: 12 }}>
+          {toDoList.map((item, index) => (
             <View>
-              <Text>{item.id}: {item.title} is {item.completed}</Text>
+              <Text>{index + 1}: {item.title}</Text>
             </View>
           ))}
         </View>
+        <Text>Last Updated: {lastUpdated}</Text>
+        <Text>Account: {JSON.stringify(account)}</Text>
       </View>
     )
   }
@@ -25,6 +32,9 @@ class ViewB extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    lastUpdated: state.lastUpdated,
+    error: state.error,
+    account: state.account,
     toDoList: state.toDoList
   }
 }
